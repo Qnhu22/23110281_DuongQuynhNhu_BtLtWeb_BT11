@@ -91,4 +91,44 @@
     <servlet-name>LogoutServlet</servlet-name>
     <url-pattern>/LogoutServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>BtSession</display-name>
+    <servlet-name>BtSession</servlet-name>
+    <servlet-class>BaiTapSession.BtSession</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BtSession</servlet-name>
+    <url-pattern>/BtSession</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LoginSvlet</display-name>
+    <servlet-name>LoginSvlet</servlet-name>
+    <servlet-class>baitapsession.LoginSvlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginSvlet</servlet-name>
+    <url-pattern>/LoginSvlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ProfileSvlet</display-name>
+    <servlet-name>ProfileSvlet</servlet-name>
+    <servlet-class>baitapsession.ProfileSvlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProfileSvlet</servlet-name>
+    <url-pattern>/ProfileSvlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LogoutSvlet</display-name>
+    <servlet-name>LogoutSvlet</servlet-name>
+    <servlet-class>baitapsession.LogoutSvlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LogoutSvlet</servlet-name>
+    <url-pattern>/LogoutSvlet</url-pattern>
+  </servlet-mapping>
 </web-app>
