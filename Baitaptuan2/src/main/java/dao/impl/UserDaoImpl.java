@@ -2,18 +2,18 @@ package dao.impl;
 
 import dao.UserDao;
 import model.User;
-import java.sql.*;
 import config.DBConnection;
 
+import java.sql.*;
 
-public class UserDaoImpl implements UserDao{
-	private Connection conn;
+public class UserDaoImpl implements UserDao {
+    private Connection conn;
     private PreparedStatement ps;
     private ResultSet rs;
 
     @Override
     public User get(String username) {
-        String sql = "SELECT * FROM Users WHERE username = ? ";
+        String sql = "SELECT * FROM Users WHERE username = ?";
         try {
             conn = new DBConnection().getConnection();
             ps = conn.prepareStatement(sql);
@@ -34,7 +34,97 @@ public class UserDaoImpl implements UserDao{
             }
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            closeResources();
         }
         return null;
+    }
+
+    @Override
+    public boolean checkExistEmail(String email) {
+        String sql = "SELECT email FROM Users WHERE email = ?";
+        try {
+            conn = new DBConnection().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, email);
+            rs = ps.executeQuery();
+            return rs.next(); // Trả về true nếu email đã tồn tại
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeResources();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean checkExistUsername(String username) {
+        String sql = "SELECT username FROM Users WHERE username = ?";
+        try {
+            conn = new DBConnection().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, username);
+            rs = ps.executeQuery();
+            return rs.next(); // Trả về true nếu username đã tồn tại
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeResources();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean checkExistPhone(String phone) {
+        String sql = "SELECT phone FROM Users WHERE phone = ?";
+        try {
+            conn = new DBConnection().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, phone);
+            rs = ps.executeQuery();
+            return rs.next(); // Trả về true nếu phone đã tồn tại
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeResources();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean insert(User user) {
+        String sql = "INSERT INTO Users (email, username, fullname, password, avatar, roleid, phone, createdDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+            conn = new DBConnection().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, user.getEmail());
+            ps.setString(2, user.getUserName());
+            ps.setString(3, user.getFullName());
+            ps.setString(4, user.getPassWord());
+            ps.setString(5, user.getAvatar()); // Có thể là null nếu chưa có avatar
+            ps.setInt(6, user.getRoleid());
+            ps.setString(7, user.getPhone());
+            // Chuyển đổi java.util.Date sang java.sql.Date
+            java.sql.Date sqlDate = new java.sql.Date(user.getCreatedDate().getTime());
+            ps.setDate(8, sqlDate);
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeResources();
+        }
+        return false;
+    }
+
+    // Phương thức đóng tài nguyên (connection, prepared statement, result set)
+    private void closeResources() {
+        try {
+            if (rs != null) rs.close();
+            if (ps != null) ps.close();
+            if (conn != null) conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
