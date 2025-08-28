@@ -15,7 +15,6 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        // Lấy thông tin user từ session (nếu cần)
         req.getRequestDispatcher("/views/home.jsp").forward(req, resp);
     }
 }

@@ -17,19 +17,16 @@ public class LogoutController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        // Lấy session
         HttpSession session = req.getSession(false);
         if (session != null) {
-            // Xóa session
             session.invalidate();
         }
 
-        // Xóa cookie "username" nếu có
         Cookie[] cookies = req.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if ("username".equals(cookie.getName())) {
-                    cookie.setMaxAge(0); // Xóa cookie
+                    cookie.setMaxAge(0);
                     cookie.setPath("/");
                     resp.addCookie(cookie);
                     break;
@@ -37,7 +34,6 @@ public class LogoutController extends HttpServlet {
             }
         }
 
-        // Chuyển hướng về trang đăng nhập
         resp.sendRedirect(req.getContextPath() + "/login");
     }
 }

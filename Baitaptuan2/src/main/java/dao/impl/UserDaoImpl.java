@@ -48,7 +48,7 @@ public class UserDaoImpl implements UserDao {
             ps = conn.prepareStatement(sql);
             ps.setString(1, email);
             rs = ps.executeQuery();
-            return rs.next(); // Trả về true nếu email đã tồn tại
+            return rs.next();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -65,7 +65,7 @@ public class UserDaoImpl implements UserDao {
             ps = conn.prepareStatement(sql);
             ps.setString(1, username);
             rs = ps.executeQuery();
-            return rs.next(); // Trả về true nếu username đã tồn tại
+            return rs.next();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -82,7 +82,7 @@ public class UserDaoImpl implements UserDao {
             ps = conn.prepareStatement(sql);
             ps.setString(1, phone);
             rs = ps.executeQuery();
-            return rs.next(); // Trả về true nếu phone đã tồn tại
+            return rs.next();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -101,10 +101,9 @@ public class UserDaoImpl implements UserDao {
             ps.setString(2, user.getUserName());
             ps.setString(3, user.getFullName());
             ps.setString(4, user.getPassWord());
-            ps.setString(5, user.getAvatar()); // Có thể là null nếu chưa có avatar
+            ps.setString(5, user.getAvatar());
             ps.setInt(6, user.getRoleid());
             ps.setString(7, user.getPhone());
-            // Chuyển đổi java.util.Date sang java.sql.Date
             java.sql.Date sqlDate = new java.sql.Date(user.getCreatedDate().getTime());
             ps.setDate(8, sqlDate);
             int rowsAffected = ps.executeUpdate();
@@ -117,7 +116,6 @@ public class UserDaoImpl implements UserDao {
         return false;
     }
 
-    // Phương thức đóng tài nguyên (connection, prepared statement, result set)
     private void closeResources() {
         try {
             if (rs != null) rs.close();

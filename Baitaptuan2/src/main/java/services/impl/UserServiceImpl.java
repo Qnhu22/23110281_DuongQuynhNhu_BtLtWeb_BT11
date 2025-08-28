@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService{
         user.setFullName(fullname);
         user.setPhone(phone);
         user.setCreatedDate(createdDate);
-        user.setRoleid(3); // Mặc định roleid = 3 (user thông thường)
+        user.setRoleid(3);
         return userDao.insert(user);
     }
     

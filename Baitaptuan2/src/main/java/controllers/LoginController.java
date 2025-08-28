@@ -19,13 +19,12 @@ public class LoginController extends HttpServlet {
 
         HttpSession session = req.getSession(false);
 
-        // Nếu user đã login thì chuyển sang waiting
         if (session != null && session.getAttribute("account") != null) {
             resp.sendRedirect(req.getContextPath() + "/waiting");
             return;
         }
 
-        // Kiểm tra cookie "username"
+
         Cookie[] cookies = req.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
@@ -61,11 +60,9 @@ public class LoginController extends HttpServlet {
         User user = service.login(username, password);
 
         if (user != null) {
-            // Lưu session
             HttpSession session = req.getSession(true);
             session.setAttribute("account", user);
 
-            // Remember me
             if (isRememberMe) {
                 saveRememberMe(resp, username);
             }
@@ -79,8 +76,8 @@ public class LoginController extends HttpServlet {
 
     private void saveRememberMe(HttpServletResponse response, String username) {
         Cookie cookie = new Cookie("username", username);
-        cookie.setMaxAge(30 * 60); // 30 phút
-        cookie.setPath("/");       // Áp dụng cho toàn bộ app
+        cookie.setMaxAge(30 * 60);
+        cookie.setPath("/");
         response.addCookie(cookie);
     }
 }

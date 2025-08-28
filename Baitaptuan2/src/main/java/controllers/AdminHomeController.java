@@ -16,6 +16,5 @@ public class AdminHomeController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         req.getRequestDispatcher("/views/admin/home.jsp").forward(req, resp);
-        // Tạo file home.jsp trong src/main/webapp/views/admin/ nếu chưa có
     }
 }
