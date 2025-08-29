@@ -53,4 +53,13 @@ public class UserServiceImpl implements UserService{
         return userDao.insert(user);
     }
     
+    @Override
+    public void updatePassword(String email, String newPassword) {
+        userDao.updatePassword(email, newPassword);
+    }
+    
+    @Override
+    public User getByEmail(String email) {
+        return userDao.getByEmail(email);    
+    }
 }
