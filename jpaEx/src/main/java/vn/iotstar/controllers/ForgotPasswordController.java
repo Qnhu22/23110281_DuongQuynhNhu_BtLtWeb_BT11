@@ -23,7 +23,6 @@ public class ForgotPasswordController extends HttpServlet {
             throws ServletException, IOException {
         String email = req.getParameter("email");
 
-        // 🚀 Bước demo: chỉ thông báo, chưa gửi mail thật
         req.setAttribute("message", "Nếu email tồn tại trong hệ thống, mật khẩu đã được gửi tới: " + email);
         req.getRequestDispatcher("/views/forgot.jsp").forward(req, resp);
     }

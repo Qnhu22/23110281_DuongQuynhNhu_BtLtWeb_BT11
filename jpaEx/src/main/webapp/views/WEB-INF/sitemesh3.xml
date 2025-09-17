@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemesh>
+    <!-- Trang công khai -->
+    <mapping path="/login" decorator="/views/WEB-INF/decorators/web.jsp"/>
+    <mapping path="/register" decorator="/views/WEB-INF/decorators/web.jsp"/>
+    <mapping path="/forgot" decorator="/views/WEB-INF/decorators/web.jsp"/>
+
+    <!-- Trang hồ sơ -->
+    <mapping path="/profile" decorator="/views/WEB-INF/decorators/user.jsp"/>
+
+    <!-- Trang theo vai trò -->
+    <mapping path="/admin/*" decorator="/views/WEB-INF/decorators/admin.jsp"/>
+    <mapping path="/manager/*" decorator="/views/WEB-INF/decorators/manager.jsp"/>
+    <mapping path="/user/*" decorator="/views/WEB-INF/decorators/user.jsp"/>
+</sitemesh>

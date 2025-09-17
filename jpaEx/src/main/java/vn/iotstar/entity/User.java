@@ -13,7 +13,7 @@ public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id") // 👈 map đúng cột PK trong DB
+    @Column(name = "id")
     private int userId;
 
     @Column(nullable = false, unique = true)

@@ -16,4 +16,14 @@ public class UserServices implements IUserServices {
     public void insert(User user) {
         userDao.insert(user);
     }
+
+    @Override
+    public void update(User user) {
+        userDao.update(user);
+    }
+    
+    @Override
+    public User findById(int id) {
+        return userDao.findById(id);
+    }
 }

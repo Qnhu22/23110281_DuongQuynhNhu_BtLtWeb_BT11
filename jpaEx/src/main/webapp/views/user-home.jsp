@@ -19,6 +19,7 @@
 <div class="container mt-4">
   <h2 class="mb-4 text-primary">Danh sách Category</h2>
   <a class="btn btn-primary mb-3" href="<c:url value='/user/category/add'/>">+ Thêm Category</a>
+  <a class="btn btn-success mb-3" href="<c:url value='/user/videos'/>">📹 Quản lý Video</a>
 
   <table class="table table-bordered table-striped shadow-sm">
     <thead class="table-primary">

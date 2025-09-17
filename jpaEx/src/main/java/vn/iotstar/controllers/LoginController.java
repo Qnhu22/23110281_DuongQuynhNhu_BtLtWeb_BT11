@@ -15,17 +15,14 @@ import java.io.IOException;
 @WebServlet(urlPatterns = {"/login", "/logout"})
 public class LoginController extends HttpServlet {
     private static final long serialVersionUID = 1L;
-
     private IUserServices userService = new UserServices();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String url = req.getRequestURI();
-
         if (url.contains("logout")) {
             HttpSession session = req.getSession();
-            session.invalidate(); // xoá session
+            session.invalidate(); // Xóa session
             resp.sendRedirect(req.getContextPath() + "/login");
         } else {
             req.getRequestDispatcher("/views/login.jsp").forward(req, resp);
@@ -33,9 +30,7 @@ public class LoginController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
-
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username").trim();
         String password = req.getParameter("password").trim();
 
@@ -45,15 +40,15 @@ public class LoginController extends HttpServlet {
             HttpSession session = req.getSession();
             session.setAttribute("user", user);
 
-            // điều hướng theo roleId
+            // Điều hướng theo roleId
             switch (user.getRoleId()) {
-                case 1: // admin
-                    resp.sendRedirect(req.getContextPath() + "/admin/categories");
+                case 1: // Admin
+                    resp.sendRedirect(req.getContextPath() + "/admin/home");
                     break;
-                case 2: // manager
+                case 2: // Manager
                     resp.sendRedirect(req.getContextPath() + "/manager/home");
                     break;
-                case 3: // user
+                case 3: // User
                     resp.sendRedirect(req.getContextPath() + "/user/home");
                     break;
                 default:
