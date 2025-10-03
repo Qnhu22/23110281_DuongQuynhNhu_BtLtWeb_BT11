@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security"
+      lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Trang chủ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center text-primary">Chào mừng đến với Demo Shop</h1>
+
+    <div class="text-center mt-4">
+        <a th:href="@{/products}" class="btn btn-outline-primary">Xem sản phẩm</a>
+
+        <span sec:authorize="isAnonymous()">
+            <a th:href="@{/login}" class="btn btn-success">Đăng nhập</a>
+            <a th:href="@{/register}" class="btn btn-warning">Đăng ký</a>
+        </span>
+
+        <span sec:authorize="isAuthenticated()">
+            <a th:href="@{/logout}" class="btn btn-danger">Đăng xuất</a>
+        </span>
+    </div>
+</div>
+</body>
+</html>

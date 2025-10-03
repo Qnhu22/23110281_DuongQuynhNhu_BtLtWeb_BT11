@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo4 - JWT Auth Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h2 { color: #2c3e50; }
+        .box { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; border-radius: 8px; }
+        input, button { margin: 5px 0; padding: 6px; width: 250px; }
+        pre { background: #f4f4f4; padding: 10px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+<h1>JWT Demo4 Test</h1>
+
+<div class="box">
+    <h2>Register</h2>
+    <form id="registerForm">
+        <input type="text" id="reg_username" placeholder="Username" required><br>
+        <input type="password" id="reg_password" placeholder="Password" required><br>
+        <input type="email" id="reg_email" placeholder="Email"><br>
+        <input type="text" id="reg_fullName" placeholder="Full Name"><br>
+        <button type="submit">Register</button>
+    </form>
+    <pre id="registerResult"></pre>
+</div>
+
+<div class="box">
+    <h2>Login</h2>
+    <form id="loginForm">
+        <input type="text" id="login_username" placeholder="Username" required><br>
+        <input type="password" id="login_password" placeholder="Password" required><br>
+        <button type="submit">Login</button>
+    </form>
+    <pre id="loginResult"></pre>
+</div>
+
+<div class="box">
+    <h2>Profile</h2>
+    <button id="getMe">Get My Info</button>
+    <button id="getAll">Get All Users</button>
+    <pre id="profileResult"></pre>
+</div>
+
+<script>
+    // Register
+    document.getElementById("registerForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        let res = await fetch("/auth/register", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                username: document.getElementById("reg_username").value,
+                password: document.getElementById("reg_password").value,
+                email: document.getElementById("reg_email").value,
+                fullName: document.getElementById("reg_fullName").value
+            })
+        });
+        let data = await res.json();
+        document.getElementById("registerResult").textContent = JSON.stringify(data, null, 2);
+        if (data.token) localStorage.setItem("token", data.token);
+    });
+
+    // Login
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        let res = await fetch("/auth/login", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                username: document.getElementById("login_username").value,
+                password: document.getElementById("login_password").value
+            })
+        });
+        let data = await res.json();
+        document.getElementById("loginResult").textContent = JSON.stringify(data, null, 2);
+        if (data.token) localStorage.setItem("token", data.token);
+    });
+
+    // Get profile (me)
+    document.getElementById("getMe").addEventListener("click", async () => {
+        let token = localStorage.getItem("token");
+        if (!token) { alert("Please login first!"); return; }
+
+        let res = await fetch("/users/me", {
+            headers: { "Authorization": "Bearer " + token }
+        });
+        let data = await res.json();
+        document.getElementById("profileResult").textContent = JSON.stringify(data, null, 2);
+    });
+
+    // Get all users
+    document.getElementById("getAll").addEventListener("click", async () => {
+        let token = localStorage.getItem("token");
+        if (!token) { alert("Please login first!"); return; }
+
+        let res = await fetch("/users", {
+            headers: { "Authorization": "Bearer " + token }
+        });
+        let data = await res.json();
+        document.getElementById("profileResult").textContent = JSON.stringify(data, null, 2);
+    });
+</script>
+</body>
+</html>

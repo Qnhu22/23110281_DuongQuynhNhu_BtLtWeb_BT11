@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+<body>
+<h2>Profile (Get Current User)</h2>
+<button id="getMe">Get My Info</button>
+<pre id="result"></pre>
+
+<script>
+document.getElementById("getMe").addEventListener("click", async () => {
+    let token = localStorage.getItem("token");
+    if (!token) {
+        alert("Please login first!");
+        return;
+    }
+
+    let res = await fetch("/users/me", {
+        headers: {
+            "Authorization": "Bearer " + token
+        }
+    });
+    let data = await res.json();
+    document.getElementById("result").textContent = JSON.stringify(data, null, 2);
+});
+</script>
+</body>
+</html>
